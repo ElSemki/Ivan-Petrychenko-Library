@@ -104,6 +104,11 @@ $.prototype.init = function (selector) {
     return this; // {}
   }
 
+  if (selector.tagName) {
+    this[0] = selector;
+    this.length = 1;
+    return this;
+  }
   Object.assign(this, document.querySelectorAll(selector));
   this.length = document.querySelectorAll(selector).length;
   return this;
@@ -125,10 +130,127 @@ window.$ = $;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/lib/core.js");
 /* harmony import */ var _modules_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/display */ "./src/js/lib/modules/display.js");
+/* harmony import */ var _modules_classes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/classes */ "./src/js/lib/modules/classes.js");
+/* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
 // Файл експортов для объединения всего, где мы будем собирать нашу библиотеку (добавлять функции $ различные методы)
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = (_core__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/actions.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/actions.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+// Добавляем обработчик события
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.on = function (eventName, callback) {
+  if (!eventName || !callback) {
+    return this;
+  }
+  for (let i = 0; i < this.length; i++) {
+    this[i].addEventListener(eventName, callback);
+  }
+  return this;
+};
+
+// Удаляем обработчик события
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.off = function (eventName, callback) {
+  if (!eventName || !callback) {
+    return this;
+  }
+  for (let i = 0; i < this.length; i++) {
+    this[i].removeEventListener(eventName, callback);
+  }
+  return this;
+};
+
+// Событие click
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handler) {
+  for (let i = 0; i < this.length; i++) {
+    if (handler) {
+      this[i].addEventListener('click', handler);
+    } else {
+      this[i].click();
+    }
+  }
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/classes.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/classes.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+// Классы
+
+
+// Добавление классов элементу
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.addClass = function () {
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].classList) {
+      continue;
+    }
+    this[i].classList.add(...arguments);
+  }
+  return this;
+};
+
+// Уаление классов у элемента
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.removeClass = function () {
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].classList) {
+      continue;
+    }
+    this[i].classList.remove(...arguments);
+  }
+  return this;
+};
+
+// Toggle
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleClass = function () {
+  for (var _len = arguments.length, classNames = new Array(_len), _key = 0; _key < _len; _key++) {
+    classNames[_key] = arguments[_key];
+  }
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].classList) {
+      continue;
+    }
+    this[i].classList.toggle(classNames);
+  }
+  return this;
+};
+
+// Contains
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.containsClass = function () {
+  for (var _len2 = arguments.length, classNames = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    classNames[_key2] = arguments[_key2];
+  }
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].classList) {
+      continue;
+    }
+    this[i].classList.contains(classNames);
+  }
+  return this;
+};
 
 /***/ }),
 
@@ -144,6 +266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
 // Команды, которые будут работать со свойством display
 
+
+// Показать элемент на странице
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.show = function () {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].style) {
@@ -153,6 +277,8 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.show = function () {
   }
   return this;
 };
+
+// Спрятать элемент на странице
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.hide = function () {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].style) {
@@ -162,6 +288,8 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.hide = function () {
   }
   return this;
 };
+
+// Если элемент спрятан - покажем, если показан - спрячем
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggle = function () {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].style) {
@@ -189,7 +317,22 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggle = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
-$('div').hide().show();
+const div = $('.active');
+div.addClass('hello', 'world');
+div.removeClass('world');
+div.toggleClass('world');
+if (div.containsClass('active')) {
+  console.log('da');
+}
+div.on('click', sayHello);
+div.off('click', sayHello);
+div.click(sayHello);
+function sayHello() {
+  console.log('Hello');
+}
+$('button').on('click', function () {
+  $(this).toggleClass('active');
+});
 
 /***/ })
 

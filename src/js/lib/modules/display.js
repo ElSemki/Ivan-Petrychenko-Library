@@ -1,6 +1,7 @@
 // Команды, которые будут работать со свойством display
 import $ from '../core';
 
+// Показать элемент на странице
 $.prototype.show = function () {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].style) {
@@ -11,6 +12,7 @@ $.prototype.show = function () {
   return this;
 };
 
+// Спрятать элемент на странице
 $.prototype.hide = function () {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].style) {
@@ -21,6 +23,7 @@ $.prototype.hide = function () {
   return this;
 };
 
+// Если элемент спрятан - покажем, если показан - спрячем
 $.prototype.toggle = function () {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].style) {
