@@ -30,7 +30,7 @@ $.prototype.eq = function (i) {
   return this;
 };
 
-// 3. Получение определенного элемента по селектору внутри уже найдных
+// 3. Получение определенного элемента по селектору внутри уже найдных элементов
 $.prototype.find = function (selector) {
   let numberOfItems = 0;
   let counter = 0;
