@@ -1,7 +1,7 @@
 // Классы
 import $ from '../core';
 
-// Добавление классов элементу
+// 1. Добавление классов элементу
 $.prototype.addClass = function (...classNames) {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].classList) {
@@ -13,7 +13,7 @@ $.prototype.addClass = function (...classNames) {
   return this;
 };
 
-// Уаление классов у элемента
+// 2. Уаление классов у элемента
 $.prototype.removeClass = function (...classNames) {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].classList) {
@@ -25,8 +25,8 @@ $.prototype.removeClass = function (...classNames) {
   return this;
 };
 
-// Toggle
-$.prototype.toggleClass = function (...classNames) {
+// 3. Toggle
+$.prototype.toggleClass = function (classNames) {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].classList) {
       continue;
@@ -37,8 +37,8 @@ $.prototype.toggleClass = function (...classNames) {
   return this;
 };
 
-// Contains
-$.prototype.containsClass = function (...classNames) {
+// 4. Contains
+$.prototype.containsClass = function (classNames) {
   for (let i = 0; i < this.length; i++) {
     if (!this[i].classList) {
       continue;
