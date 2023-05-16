@@ -382,16 +382,24 @@ __webpack_require__.r(__webpack_exports__);
 
 // Техническая функция, которая занимается запуском анимации
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.animateOverTime = function (duration, callback, fin) {
+  // Создаем функцию, которая будет запускаться до определенного условия
+  // Вычисляем время начала анимации и постоянно его сравниваем с тем временем, который передали в аргумент (duration)
   let timeStart;
   function _animateOverTime(time) {
+    // Функция будет запускаться каждый раз через определенный промежуток времени, который решает браузер. У нас каждый раз функция будет получать аргумент time, мы его не можем контролировать, оно приходит автоматически.
+
+    // Установка врмененного промежутка
     if (!timeStart) {
       timeStart = time;
     }
 
-    // Вычисляем сколько времени прошло
+    // Вычисляем сколько времени прошло. Переменная отслеживает выполнение анимации. Мы берем то время, которое каждый раз изменяется и каждый раз отнимаем начало анимации. И это позволит отслеживать прогресс.
     let timeElapsed = time - timeStart;
-    // Изменение параметров на странице (opacity)
+
+    // Изменение параметров на странице (opacity) при помощи временных промежутков
     let copmlection = Math.min(timeElapsed / duration, 1);
+
+    // Запускается после запуска анимации
     callback(copmlection);
     if (timeElapsed < duration) {
       requestAnimationFrame(_animateOverTime);
@@ -489,42 +497,15 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handle
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
-
-// const div = $('.active');
-// div.addClass('hello', 'world');
-// div.removeClass('world');
-// div.toggleClass('world');
-// if (div.containsClass('active')) {
-//   console.log('da');
-// }
-
-// div.on('click', sayHello);
-// div.off('click', sayHello);
-// div.click(sayHello);
-
-// function sayHello() {
-//   console.log('Hello');
-// }
-
-// $('button').on('click', function () {
-//   $(this).toggleClass('active');
-// });
-
-// console.log($('button').html('Hello'));
-
-$('button').on('click', function () {
-  $('div').eq(2).toggleClass('active');
+$('#first').click(() => {
+  $('div').eq(1).fadeOut(800);
 });
-
-// $('div').click(function () {
-//   console.log($(this).index());
-// });
-
-// console.log($('div').eq(2).find('.some'));
-// console.log($('.some').closest('.findme'));
-
-// console.log($('.more').eq(0).siblings());
-$('button').fadeIn(1800);
+$('[data-count="second"]').on('click', () => {
+  $('div').eq(2).fadeOut(800);
+});
+$('button').eq(2).on('click', () => {
+  $('.w-500').fadeOut(800);
+});
 
 /***/ })
 
